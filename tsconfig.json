@@ -1,0 +1,16 @@
+{
+  "extends": "@carloszv/eslint-config-base/tsconfig",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "./src",
+    "allowJs": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "custom.d.ts",
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
