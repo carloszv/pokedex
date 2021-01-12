@@ -108,8 +108,6 @@ export default function PokemonDetailTemplate({
     }
   }
 
-  console.log(pokemonInfo.evolutionChain)
-
   if (pokemonInfo.evolutionChain.firstLink.name === '') {
     return <LoadingSpinner />
   }

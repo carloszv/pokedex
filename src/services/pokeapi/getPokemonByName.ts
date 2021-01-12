@@ -28,6 +28,7 @@ export default function getPokemonByName({ name, dispatch }: GetPokemonByName) {
                     )
                   : Promise.resolve(),
 
+                pokemonEvolutionChain.chain.evolves_to.length > 0 &&
                 pokemonEvolutionChain.chain.evolves_to[0].evolves_to.length > 0
                   ? getPokemonData(
                       `${API_URL}${pokemonEvolutionChain.chain.evolves_to[0].evolves_to[0].species.name}`,
@@ -60,15 +61,17 @@ export default function getPokemonByName({ name, dispatch }: GetPokemonByName) {
                               'official-artwork'
                             ].front_default,
                         },
-                        thirdLink: pokemonEvolutionChain.chain.evolves_to[0]
-                          .evolves_to[0] !== undefined && {
-                          ...pokemonEvolutionChain.chain.evolves_to[0]
-                            .evolves_to[0].species,
-                          img:
-                            pokemonEvolutionSecondary.sprites.other[
-                              'official-artwork'
-                            ].front_default,
-                        },
+                        thirdLink: pokemonEvolutionChain.chain.evolves_to[0] !==
+                          undefined &&
+                          pokemonEvolutionChain.chain.evolves_to[0]
+                            .evolves_to[0] !== undefined && {
+                            ...pokemonEvolutionChain.chain.evolves_to[0]
+                              .evolves_to[0].species,
+                            img:
+                              pokemonEvolutionSecondary.sprites.other[
+                                'official-artwork'
+                              ].front_default,
+                          },
                       },
                     },
                   }
