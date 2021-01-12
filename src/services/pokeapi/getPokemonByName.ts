@@ -17,9 +17,11 @@ export default function getPokemonByName({ name, dispatch }: GetPokemonByName) {
           getPokemonData(pokemonSpecies.evolution_chain.url).then(
             (pokemonEvolutionChain) => {
               Promise.all([
-                getPokemonData(
-                  `${API_URL}${pokemonEvolutionChain.chain.species.name}`,
-                ),
+                pokemonEvolutionChain.chain !== undefined
+                  ? getPokemonData(
+                      `${API_URL}${pokemonEvolutionChain.chain.species.name}`,
+                    )
+                  : Promise.resolve(),
                 pokemonEvolutionChain.chain.evolves_to.length > 0
                   ? getPokemonData(
                       `${API_URL}${pokemonEvolutionChain.chain.evolves_to[0].species.name}`,
@@ -41,7 +43,8 @@ export default function getPokemonByName({ name, dispatch }: GetPokemonByName) {
                     pokemonData,
                     pokemonInfo: {
                       species: pokemonSpecies,
-                      evolutionChain: {
+                      evolutionChain: pokemonEvolutionChain.chain.species !==
+                        undefined && {
                         firstLink: {
                           ...pokemonEvolutionChain.chain.species,
                           img:
@@ -49,14 +52,16 @@ export default function getPokemonByName({ name, dispatch }: GetPokemonByName) {
                               'official-artwork'
                             ].front_default,
                         },
-                        secondLink: {
+                        secondLink: pokemonEvolutionChain.chain
+                          .evolves_to[0] !== undefined && {
                           ...pokemonEvolutionChain.chain.evolves_to[0].species,
                           img:
                             pokemonEvolutionPrimary.sprites.other[
                               'official-artwork'
                             ].front_default,
                         },
-                        thirdLink: {
+                        thirdLink: pokemonEvolutionChain.chain.evolves_to[0]
+                          .evolves_to[0] !== undefined && {
                           ...pokemonEvolutionChain.chain.evolves_to[0]
                             .evolves_to[0].species,
                           img:

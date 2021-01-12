@@ -13,6 +13,10 @@ export const ErrorMessage = styled.span`
   font-weight: 600;
   margin: 0.5em 2em;
   align-self: center;
+
+  @media (max-width: 768px) {
+    font-size: 120%;
+  }
 `
 
 export const ImageWrapper = styled(NavLink)`

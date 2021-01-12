@@ -108,6 +108,8 @@ export default function PokemonDetailTemplate({
     }
   }
 
+  console.log(pokemonInfo.evolutionChain)
+
   if (pokemonInfo.evolutionChain.firstLink.name === '') {
     return <LoadingSpinner />
   }
@@ -203,7 +205,7 @@ export default function PokemonDetailTemplate({
               </TypesList>
             </DetailsItem>
           </TypeWrapper>
-          {pokemonInfo.evolutionChain.secondLink.img !== '' && (
+          {pokemonInfo.evolutionChain.secondLink && (
             <EvolutionWrapper>
               <DetailTitle style={{ color: 'black', margin: '10px 0' }}>
                 evolution
@@ -234,7 +236,7 @@ export default function PokemonDetailTemplate({
                     ></Image>
                   </EvolutionImageWrapper>
                 </EvolutionItem>
-                {pokemonInfo.evolutionChain.thirdLink.img !== '' && (
+                {pokemonInfo.evolutionChain.thirdLink && (
                   <>
                     <EvolutionArrow>{'>'}</EvolutionArrow>
                     <EvolutionItem
